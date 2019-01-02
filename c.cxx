@@ -6,7 +6,7 @@
 	A tool that searches the screen for a pixel of a certain color and returns it's coordiantes
 	Uses X11 and stdlib/iostream
 */
-// g++ <name>.cxx -o <name> -lXlib
+// g++ <name>.cxx -o <name> -lX11
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <iostream>
