@@ -7,10 +7,17 @@
 	Uses X11 and stdlib/iostream
 */
 // g++ <name>.cxx -o <name> -lX11
+//
+// g++ <name>.cxx -o <name> -lX11
+// ./<name> <SRed> <SGreen> <SBlue> <ColorDelta> <CDelta> <SX> <SY> <EX> <EY>
+// ./search 255 255 255 0 10 0 0 0 0
+//
+
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <iostream>
 #include <stdlib.h>
+
 int GetColor( int SRed,int SGreen,int SBlue,int ColorDelta, int CDelta = 1, int SX = 0, int SY = 0, int EX = 0, int EY = 0 )
 {
 	static bool Match;
@@ -69,6 +76,7 @@ int GetColor( int SRed,int SGreen,int SBlue,int ColorDelta, int CDelta = 1, int 
 	}
 	return 0;
 }
+
 int main( int argc, char **argv )
 {
 	int SRed = atoi(argv[1]);
