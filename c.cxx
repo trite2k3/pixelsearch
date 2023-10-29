@@ -22,6 +22,25 @@
 
 int GetColor( int SRed,int SGreen,int SBlue,int ColorDelta, int CDelta = 1, int SX = 0, int SY = 0, int EX = 0, int EY = 0 )
 {
+
+	// set search area to default display
+	if (SX == 0) {
+	    SX = 0;
+	}
+	if (SY == 0) {
+	    SY = 0;
+	}
+	if (EX == 0) {
+	    XMax = WidthOfScreen(DefaultScreenOfDisplay(Display));
+	} else {
+	    XMax = EX;
+	}
+	if (EY == 0) {
+	    YMax = HeightOfScreen(DefaultScreenOfDisplay(Display));
+	} else {
+	    YMax = EY;
+	}
+	
 	static bool Match;
 	static int x, y;
 	int Red, Green, Blue, XMax, YMax;
