@@ -11,6 +11,8 @@
 // g++ <name>.cxx -o <name> -lX11
 // ./<name> <SRed> <SGreen> <SBlue> <ColorDelta> <CDelta> <SX> <SY> <EX> <EY>
 // ./search 255 255 255 0 10 0 0 0 0
+// ColorDelta = 0, will be an exact match
+// 
 // 
 
 #include <X11/Xlib.h>
