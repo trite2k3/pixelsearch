@@ -32,43 +32,27 @@ function joinbg
 {
     #trying to join queue
     echo "targeting npc"
-    sleep 0.3
+    sleep 0.2
     xdotool key Return
     sleep 0.2
     xdotool key slash
-    sleep 0.1
     xdotool key t
-    sleep 0.1
     xdotool key a
-    sleep 0.1
     xdotool key r
-    sleep 0.1
     xdotool key g
-    sleep 0.1
     xdotool key e
-    sleep 0.1
     xdotool key t
-    sleep 0.1
     xdotool key space
-    sleep 0.1
     xdotool key T
-    sleep 0.1
     xdotool key h
-    sleep 0.1
     xdotool key e
-    sleep 0.1
     xdotool key l
-    sleep 0.1
     xdotool key m
-    sleep 0.1
     xdotool key a
-    sleep 0.1
     xdotool key n
-    sleep 0.1
     xdotool key Return
-    sleep 0.1
     xdotool key 0
-    sleep 0.2
+    sleep 0.1
     xdotool key 0
     sleep 1
     #join bg and accept q
@@ -77,19 +61,17 @@ function joinbg
     echo "opening npc chat"
     xdotool mousemove --sync 2825 449
     xdotool click 1
-    sleep 3
+    sleep 1
     #join battle
     echo "pressing join button"
     xdotool mousemove --sync 2901 887
     xdotool click 1
-    sleep 1
 }
 
 function enterbattle
 {
     #trying to join bq pop
     xdotool mousemove --sync 3645 322
-    sleep 1
     xdotool click 1
 }
 
@@ -97,7 +79,6 @@ function exitbattle
 {
     #trying to join bq pop
     xdotool mousemove --sync 3845 1001
-    sleep 1
     xdotool click 1
 }
 
