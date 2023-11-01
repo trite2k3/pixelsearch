@@ -158,15 +158,6 @@ do
         sleep 7.5
         xdotool keyup Up
         sleep 0.1
-        #xdotool keydown d
-        #sleep 1
-        #xdotool keyup d
-        #echo "waiting for gates to open"
-        #sleep 60
-        echo "walking"
-        xdotool keydown Up
-        sleep 30
-        xdotool keyup Up
 
         counter=0
 
@@ -176,17 +167,13 @@ do
             sleep 0.1
             xdotool key Down
             sleep 0.1
-            xdotool key Down
-            sleep 0.1
             xdotool key Up
             sleep 0.1
             xdotool key Up
-            sleep 0.1
-            xdotool key Up
-            sleep 0.3
+            sleep 10
             xdotool key g
             echo "sneaky afk"
-            sleep 30
+            sleep 20
 
             SX=4244
             SY=1001
