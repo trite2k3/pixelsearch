@@ -24,8 +24,6 @@ function limitedsearch
         varX="${values[0]}"
         varY="${values[1]}"
 
-        #echo $varX
-        #echo $varY
         return 0
     fi
 }
@@ -70,9 +68,7 @@ function joinbg
     xdotool key Return
     sleep 0.1
     xdotool key 0
-    sleep 0.1
-    xdotool key 0
-    sleep 0.1
+    sleep 0.2
     xdotool key 0
     sleep 1
     #join bg and accept q
@@ -122,9 +118,6 @@ do
     SY=63
     if limitedsearch "$SRed, $SGreen, $SBlue, $ColorDelta, $CDelta, $SX, $SY, $EX, $EY"
     then
-        #move mouse to pos
-        #echo "Moving mouse to "$varX$varY
-        #xdotool mousemove $varX $varY
         echo "We are in Stormwind Keep."
 
         counter=0
