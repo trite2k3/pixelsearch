@@ -136,7 +136,7 @@ do
         done
 
     else
-        echo "We are probably in Alterac Valley."
+        echo "We are in Alterac Valley."
         xdotool keydown Up
         sleep 3
         xdotool keyup Up
@@ -150,6 +150,9 @@ do
         xdotool keydown Up
         sleep 7.5
         xdotool keyup Up
+        sleep 60
+        xdotool keydown Up
+        sleep 30
         sleep 0.1
 
         counter=0
