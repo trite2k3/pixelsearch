@@ -151,7 +151,7 @@ do
             then
                 echo "exiting battle"
                 exitbattle
-                continue
+                break
             else
                 echo "bg not finished"
             fi
