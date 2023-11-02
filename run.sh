@@ -56,8 +56,6 @@ function joinbg
     xdotool key 0
     sleep 1
     #join bg and accept q
-    #npc chat
-    sleep 3
     echo "opening npc chat"
     xdotool mousemove --sync 2825 449
     xdotool click 1
@@ -103,11 +101,10 @@ do
 
         counter=0
 
-        while [ $counter -lt 2 ]
+        while [ $counter -lt 3 ]
         do
             sleep 2
             joinbg
-            sleep 1
             enterbattle
             sleep 20
             echo "anti afk"
@@ -122,7 +119,7 @@ do
         sleep 3
         xdotool keyup Up
         xdotool keydown Right
-        sleep 0.245
+        sleep 0.25
         xdotool keyup Right
         xdotool keydown d
         sleep 1
@@ -138,13 +135,9 @@ do
 
         counter=0
 
-        while [ $counter -lt 2 ]
+        while [ $counter -lt 5 ]
         do
             xdotool key Down
-            sleep 0.1
-            xdotool key Down
-            sleep 0.1
-            xdotool key Up
             sleep 0.1
             xdotool key Up
             sleep 10
