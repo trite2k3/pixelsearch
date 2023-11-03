@@ -123,13 +123,24 @@ function antiAFK
 
 function antiAFKstormwind
 {
-    echo "AntiAFK - Moving."
-    xdotool keydown d
-    sleep 0.1
-    xdotool keyup d
-    xdotool keydown a
-    sleep 0.1
-    xdotool keyup a
+    if [ $afkselect -gt 0 ]
+    then
+        echo "AntiAFK - Moving."
+        xdotool key Up
+        sleep 0.1
+        xdotool key Down
+        afkselect=0
+    else
+        echo "AntiAFK - Moving."
+        xdotool keydown d
+        sleep 0.1
+        xdotool keyup d
+        xdotool keydown a
+        sleep 0.1
+        xdotool keyup a
+    fi
+
+    ((afkselect++))
 }
 
 function checkcurrentstatus
@@ -189,6 +200,7 @@ queued=0
 battlefinished=0
 moveAV=0
 afktick=0
+afkselect=0
 
 while true
 do
