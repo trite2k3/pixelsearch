@@ -1,37 +1,33 @@
 #!/bin/bash
 
-#time to focus window
+#Time to focus window
 sleep 2
 
 function limitedsearch
 {
     #Run the binary
-    pixelsearch=$(./limitedsearch $SRed $SGreen $SBlue $ColorDelta $CDelta $SX $SY $EX $EY)
+    pixelsearch=$(./limitedsearch $1 $2 $3 $ColorDelta $CDelta $4 $5 $EX $EY)
 
-    #only do stuff if pixel is found
+    #Only do stuff if pixel is found
     if [ "$pixelsearch" = "No" ]
         then
-        echo "Pixel not found."
-        return 1
-
+            #echo "Pixel not found."
+            return 1
         else
-        #split the output into two variables
+        #Split the output into two variables
         IFS=',' read -ra values <<< "$(echo "$pixelsearch" | awk -F',' '{print $1,$2}')"
-
-        echo $IFS
 
         #Assign
         varX="${values[0]}"
         varY="${values[1]}"
-
         return 0
     fi
 }
 
-function joinbg
+function joinqueue
 {
-    #trying to join queue
-    echo "targeting npc"
+    #Join queue
+    echo "Targeting NPC"
     sleep 0.2
     xdotool key Return
     sleep 0.2
@@ -55,108 +51,184 @@ function joinbg
     sleep 0.1
     xdotool key 0
     sleep 1
-    #join bg and accept q
-    echo "opening npc chat"
+
+    #Join bg and accept q
+    echo "I would like to go to the battleground."
     xdotool mousemove --sync 2825 449
     xdotool click 1
     sleep 1
-    #join battle
-    echo "pressing join button"
+
+    #Join battle
+    echo "Pressing Join Battle and joining queue."
     xdotool mousemove --sync 2901 887
     xdotool click 1
 }
 
 function enterbattle
 {
-    #trying to join bq pop
+    #Join bq pop
+    echo "Enter battle."
     xdotool mousemove --sync 3645 322
     xdotool click 1
 }
 
 function exitbattle
 {
-    #trying to join bq pop
+    #Exit bq pop
+    echo "Exit battle."
     xdotool mousemove --sync 3845 1001
     xdotool click 1
 }
 
-#use sleep 3; xdotool getmouselocation to find mousepos
-SRed=0
-SGreen=0
-SBlue=0
+function moveAV
+{
+    #At first entering AV, move to good spot and wait for gates to open.
+    echo "Moving to gate."
+    xdotool keydown Up
+    sleep 2.6
+    xdotool keyup Up
+    xdotool keydown Right
+    sleep 0.255
+    xdotool keyup Right
+    xdotool keydown d
+    sleep 0.5
+    xdotool keyup d
+    sleep 0.1
+    xdotool keydown Up
+    sleep 7.5
+    xdotool keyup Up
+    echo "Waiting for gate."
+    sleep 60
+    echo "Moving out from gate."
+    xdotool keydown Up
+    sleep 30
+    xdotool keyup Up
+    sleep 0.1
+}
+
+function antiAFK
+{
+    echo "Anti AFK."
+    xdotool key Up
+    sleep 0.1
+    xdotool key Down
+    sleep 0.1
+    echo "Sleeping for Shadowmeld CD."
+    sleep 10
+    xdotool key g
+
+}
+
+function antiAFKstormwind
+{
+    echo "Anti AFK Stormwind."
+    xdotool keydown d
+    sleep 0.3
+    xdotool keyup d
+    xdotool keydown a
+    sleep 0.3
+    xdotool keyup a
+}
+
+function checkcurrentstatus
+{
+    #Are we in sw keep or AV?
+    if limitedsearch 0, 0, 0, 4960, 63
+    then
+        echo "#We are in Stormwind Keep."
+        isinAV=0
+    else
+        echo "#We are in Alterac Valley"
+        isinAV=1
+    fi
+
+    #Has the scorescreen popped?
+    if limitedsearch 0, 0, 0, 4244, 1001
+    then
+        echo "#Battle finished."
+        battlefinished=1
+    else
+        echo "#Scorescreen not present."
+        battlefinished=0
+    fi
+
+    #Are we in queue?
+    if limitedsearch 240, 228, 9, 4905, 257
+    then
+        echo "#In queue."
+        queued=1
+    else
+        echo "#Not in queue."
+        queued=0
+    fi
+
+    #Has the Enter Battle popped?
+    if limitedsearch 120, 3, 0, 3643. 323
+    then
+        echo "#BG pop!"
+        enterbattle=1
+    else
+        echo "#BG has not popped."
+        enterbattle=0
+    fi
+}
+
+#Global pixelsearch arguments
+#Variance allowed in color
 ColorDelta=0
 CDelta=3
-SX=4960
-SY=63
+#Just search 1x1 pixels
 EX=1
 EY=1
 
+#Instance status boolean
+isinAV=0
+queued=0
+battlefinished=0
+moveAV=0
+afktick=0
+
 while true
 do
-    SX=4960
-    SY=63
-    if limitedsearch "$SRed, $SGreen, $SBlue, $ColorDelta, $CDelta, $SX, $SY, $EX, $EY"
+    #Get current status
+    echo "###"
+    checkcurrentstatus
+
+    #Join queue if not queued and not in AV.
+    if [ $isinAV = 0 ] && [ $queued = 0 ]
     then
-        echo "We are in Stormwind Keep."
-
-        counter=0
-
-        while [ $counter -lt 3 ]
-        do
-            sleep 2
-            joinbg
-            enterbattle
-            sleep 20
-            echo "anti afk"
-            xdotool key f
-            sleep 13
-            ((counter++))
-        done
-
-    else
-        echo "We are in Alterac Valley."
-        xdotool keydown Up
-        sleep 3
-        xdotool keyup Up
-        xdotool keydown Right
-        sleep 0.25
-        xdotool keyup Right
-        xdotool keydown d
-        sleep 1
-        xdotool keyup d
-        sleep 0.1
-        xdotool keydown Up
-        sleep 7.5
-        xdotool keyup Up
-        sleep 60
-        xdotool keydown Up
-        sleep 30
-        sleep 0.1
-
-        counter=0
-
-        while [ $counter -lt 5 ]
-        do
-            xdotool key Down
-            sleep 0.1
-            xdotool key Up
-            sleep 10
-            xdotool key g
-            echo "sneaky afk"
-            sleep 20
-
-            SX=4244
-            SY=1001
-            if limitedsearch "$SRed, $SGreen, $SBlue, $ColorDelta, $CDelta, $SX, $SY, $EX, $EY"
-            then
-                echo "exiting battle"
-                exitbattle
-                break
-            else
-                echo "bg not finished"
-            fi
-
-            ((counter++))
-        done
+        joinqueue
+    elif [ $enterbattle = 1 ]
+    then
+        enterbattle
     fi
+
+    #If inside AV. Do movement once and exit if scorescreen exist, exit and reset moveonce.
+    if [ $isinAV == 1 ]
+    then
+        if [ $moveAV = 0 ]
+        then
+            moveAV
+            moveAV=1
+        elif [ $battlefinished = 1 ]
+        then
+            exitbattle
+            moveAV=0
+        fi
+        #Shadowmeld AntiAFK
+        if [ $afktick -gt 2 ]
+        then
+            antiAFK
+            afktick=0
+        fi
+    else
+        #Bloodrage AntiAFKstormwind
+        if [ $afktick -gt 2 ]
+        then
+            antiAFKstormwind
+            afktick=0
+        fi
+    fi
+    ((afktick++))
+    sleep 20
 done
