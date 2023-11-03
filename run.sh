@@ -85,10 +85,10 @@ function moveAV
     #At first entering AV, move to good spot and wait for gates to open.
     echo "Moving to gate."
     xdotool keydown Up
-    sleep 2.6
+    sleep 2.4
     xdotool keyup Up
     xdotool keydown Right
-    sleep 0.255
+    sleep 0.26
     xdotool keyup Right
     xdotool keydown d
     sleep 0.5
