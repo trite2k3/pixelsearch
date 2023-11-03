@@ -131,7 +131,7 @@ function antiAFKstormwind
         xdotool key Down
         afkselect=0
     else
-        echo "AntiAFK - Moving."
+        echo "AntiAFK - Strafing."
         xdotool keydown d
         sleep 0.1
         xdotool keyup d
