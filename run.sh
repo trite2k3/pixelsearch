@@ -229,6 +229,7 @@ do
             afktick=0
         fi
     fi
+
     ((afktick++))
     sleep 20
 done
