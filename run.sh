@@ -98,7 +98,9 @@ function moveAV
     sleep 7.5
     xdotool keyup Up
     echo "Waiting for gate."
-    sleep 90
+    sleep 60
+    xdotool key Down
+    sleep 30
     xdotool key Down
     sleep 10
     echo "Moving out from gate."
