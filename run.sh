@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Time to focus window
-sleep 2
+sleep 3
 
 function limitedsearch
 {
@@ -98,7 +98,9 @@ function moveAV
     sleep 7.5
     xdotool keyup Up
     echo "Waiting for gate."
-    sleep 60
+    sleep 90
+    xdotool key Down
+    sleep 10
     echo "Moving out from gate."
     xdotool keydown Up
     sleep 30
@@ -108,7 +110,7 @@ function moveAV
 
 function antiAFK
 {
-    echo "Anti AFK."
+    echo "AntiAFK - Shadowmeld."
     xdotool key Up
     sleep 0.1
     xdotool key Down
@@ -121,12 +123,12 @@ function antiAFK
 
 function antiAFKstormwind
 {
-    echo "Anti AFK Stormwind."
+    echo "AntiAFK - Moving."
     xdotool keydown d
-    sleep 0.3
+    sleep 0.1
     xdotool keyup d
     xdotool keydown a
-    sleep 0.3
+    sleep 0.1
     xdotool keyup a
 }
 
@@ -216,14 +218,14 @@ do
             moveAV=0
         fi
         #Shadowmeld AntiAFK
-        if [ $afktick -gt 2 ]
+        if [ $afktick -gt 3 ]
         then
             antiAFK
             afktick=0
         fi
     else
         #Bloodrage AntiAFKstormwind
-        if [ $afktick -gt 2 ]
+        if [ $afktick -gt 3 ]
         then
             antiAFKstormwind
             afktick=0
