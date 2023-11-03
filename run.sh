@@ -123,29 +123,41 @@ function antiAFK
 
 function antiAFKstormwind
 {
-    if [ $afkselect -gt 0 ]
-    then
-        echo "AntiAFK - Jumping."
-        xdotool key space
-        sleep 0.1
-        xdotool keydown Down
-        sleep 0.1
-        xdotool keyup Down
-        sleep 1
-        xdotool keydown Up
-        sleep 0.22
-        xdotool keyup Up
-        afkselect=0
-    else
-        echo "AntiAFK - Strafing."
-        xdotool keydown Down
-        sleep 0.2
-        xdotool keyup Down
-        sleep 0.1
-        xdotool keydown Up
-        sleep 0.115
-        xdotool keyup Up
-    fi
+    case $afkselect in
+        0)
+            echo "AntiAFK - Jumping."
+            xdotool key space
+            sleep 0.1
+            xdotool keydown Down
+            sleep 0.1
+            xdotool keyup Down
+            sleep 1
+            xdotool keydown Up
+            sleep 0.22
+            xdotool keyup Up
+        ;;
+        1)
+            echo "AntiAFK - Back and forth."
+            xdotool keydown Down
+            sleep 0.2
+            xdotool keyup Down
+            sleep 0.1
+            xdotool keydown Up
+            sleep 0.115
+            xdotool keyup Up
+        ;;
+        2)
+            echo "AntiAFK - Strafing."
+            xdotool keydown d
+            sleep 0.1
+            xdotool keyup d
+            sleep 0.1
+            xdotool keydown a
+            sleep 0.1
+            xdotool keyup a
+            afkselect=0
+        ;;
+    esac
 
     ((afkselect++))
 }
