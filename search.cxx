@@ -9,7 +9,9 @@
 // g++ <name>.cxx -o <name> -lX11
 //
 // g++ <name>.cxx -o <name> -lX11
-// ./<name> <SRed> <SGreen> <SBlue> <ColorDelta> <CDelta> <SX> <SY> <EX> <EY>
+//
+// added width and height parameters to X11 GetImage
+// ./<name> <SRed> <SGreen> <SBlue> <ColorDelta> <CDelta> <SX> <SY> <EX> <EY> <EW> <EH>
 // ./search 255 255 255 0 10 0 0 0 0
 //
 
@@ -18,7 +20,7 @@
 #include <iostream>
 #include <stdlib.h>
 
-int GetColor( int SRed,int SGreen,int SBlue,int ColorDelta, int CDelta = 1, int SX = 0, int SY = 0, int EX = 0, int EY = 0 )
+int GetColor( int SRed,int SGreen,int SBlue,int ColorDelta, int CDelta = 1, int SX = 0, int SY = 0, int EX = 0, int EY = 0, int EW = 1, int EH = 1 )
 {
 	static bool Match;
 	static int x, y;
@@ -44,7 +46,7 @@ int GetColor( int SRed,int SGreen,int SBlue,int ColorDelta, int CDelta = 1, int 
 	}
 	while( !Match )
 		{
-			//Moves checked posiotion across the screen
+			//Moves checked position across the screen
 			x = x + CDelta;
 			if (x >= (XMax - CDelta))
 			{
@@ -56,7 +58,7 @@ int GetColor( int SRed,int SGreen,int SBlue,int ColorDelta, int CDelta = 1, int 
 				}
 			}
 			//gets locations color
-			image = XGetImage ( Display, RootWindow ( Display, DefaultScreen ( Display ) ), x, y, 1, 1, AllPlanes,XYPixmap );
+			image = XGetImage ( Display, RootWindow ( Display, DefaultScreen ( Display ) ), x, y, EW, EH, AllPlanes,XYPixmap );
 			Color.pixel = XGetPixel( image, 0, 0);
 			XFree ( image );
 			XQueryColor ( Display, DefaultColormap( Display, DefaultScreen ( Display ) ), &Color );
