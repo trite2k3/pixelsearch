@@ -11,5 +11,10 @@ g++ limitedsearch.cxx -o limitedsearch -lX11 -Wall
 ```
 ./limitedsearch <SRed> <SGreen> <SBlue> <ColorDelta> <CDelta> <SX> <SY> <EX> <EY>
 
+OR
+
+./limitedsearch <SRed> <SGreen> <SBlue> <ColorDelta> <CDelta> <SX> <SY> <EX> <EY> <EW> <EH>
+
+
 ./limitedsearch 255 255 255 0 10 3643 323 1 1
 ```
