@@ -2,6 +2,9 @@
 tool used to seatch for a pixel of a certain color on an X11 display and return its coordinates,
 moves mouse to found coordinate
 
+# Debian dependencies (because apparently you dont have building tools per default)
+apt install libx11-dev
+
 # build
 ```
 g++ limitedsearch.cxx -o limitedsearch -lX11 -Wall
